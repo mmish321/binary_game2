@@ -7,6 +7,7 @@ class CustomGrid < Gosu::Grid
 			"modem", "monitor", "mouse", "printer", "scanner", "speakers"]
 		@word 
 		gridAssembly
+    @code 
 	end
 
 	def gridAssembly
@@ -27,6 +28,7 @@ class CustomGrid < Gosu::Grid
 	        end
 	      end
 	    end
+      @code = main_grid
     end
 
     def letter_code(letter)
@@ -59,4 +61,7 @@ class CustomGrid < Gosu::Grid
 	def word
 		@word
 	end
+  def code
+    @code
+  end
 end
