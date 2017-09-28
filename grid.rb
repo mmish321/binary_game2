@@ -13,7 +13,7 @@ class CustomGrid < Gosu::Grid
 	def gridAssembly
       r = rand(0...9)
       main_grid = Array.new
-      @word = @words[r]
+      @word = "scanner"
       sample_word = @word 
       for i in (0...sample_word.length())
       	 main_grid.push(letter_code(sample_word[i]))

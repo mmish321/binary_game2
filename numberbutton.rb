@@ -6,7 +6,7 @@ class NumberButton < Number
 		@clicked_on = false
 	end
 	def click_on?(cursor)
-		if Gosu::distance(@x, @y, cursor.x, cursor.y) < 50 then
+		if Gosu::distance(@x, @y, cursor.x, cursor.y) < 75 then
 			@clicked_on = true
 		else
 			@clicked_on = false

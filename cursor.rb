@@ -4,6 +4,7 @@ class Cursor
 		@x = 0
 		@y = 0
 		@clickimage = Gosu::Image.new('assets/cursor_click.png', {})
+        @switch = 1
 	end
     
     def change_x(num)
@@ -12,11 +13,21 @@ class Cursor
     def click
         if (Gosu::button_down? Gosu::MsLeft) then
     	   @image = Gosu::Image.new('assets/cursor_click.png',{})
-           return true
+             @switch = 2
         else
-            @image = Gosu::Image.new('assets/cursor.png', {})
-           return false
+            if (@switch == 2) then
+                @switch = 3
+            end
+            @image = Gosu::Image.new('assets/cursor.png', {})           
         end
+        if @switch == 3 then
+            return true
+        else
+            return false
+        end
+    end
+    def reset
+        @switch = 1
     end
     
     def change_y(num)

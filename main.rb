@@ -9,7 +9,7 @@ require_relative "graphic"
 class BinaryGame_2 < Gosu::Window
 
 	def initialize()
-		super(1600,800,false, update_interval = 101)
+		super(1600,800,false)
 		@grid = CustomGrid.new(self)
 		@background_image = Gosu::Image.new("assets/clouds.jpg", {})
 		self.caption = "Simple Binary Game"
@@ -28,11 +28,11 @@ class BinaryGame_2 < Gosu::Window
 		@input = Array.new
 		@word = @grid.word
 		@correct = false
-		@goal_image = Gosu::Image.new("assets/400x400.png")
+		@goal_image = Gosu::Image.new("assets/smile.png")
 		for i in 0...@word.length()
 			x_pos = 600 + (i*120)
 			y_pos = 100
-			@letter_dashes.push(Graphic.new(x_pos,y_pos, "assets/tiny_dash.png"))
+			@letter_dashes.push(Graphic.new(x_pos,y_pos, "assets/tinydash.png"))
 		end
 	end
 
@@ -57,7 +57,6 @@ class BinaryGame_2 < Gosu::Window
   private
 
 	def cursor_movement
-      @cursor.click
       @cursor.change_x(mouse_x)
       @cursor.change_y(mouse_y)
     end
@@ -88,33 +87,40 @@ class BinaryGame_2 < Gosu::Window
 
     def check_input
        for button in @buttons
-       	if (@input.length() < 5) && button.click_on?(@cursor) && @cursor.click
-       		x_pos = (200* @input.length()) + 600
-       		y_pos = 510
-       		@draw_input.push(Graphic.new(x_pos,y_pos, "assets/#{button.value}_gold_plain.png"))
-       		@input.push(button.value)
-       	elsif  @input.length() == 5 &&  @letters.length() < @word.length()
-       		equal = true
-            for i in 0...5
-              if (@input[i] != @binarycode[@letters.length()][i])
-                equal = false
-              end
-            end
-       		if equal
-       			x_pos = 600 + (120 * @letters.length())
-       			y_pos = 80
-       			@letters.push(Graphic.new(x_pos, y_pos, "assets/letter.png"))
-       		end
-       	    if @draw_input[4].drawn 
-       	    	@input.clear
-       	    	@draw_input.clear
-       	    end
+	       	if (@input.length() < 5) && button.click_on?(@cursor) && @cursor.click && @cursor.reset
+	       		x_pos = (200* @input.length()) + 600
+	       		y_pos = 510
+	       		@draw_input.push(Graphic.new(x_pos,y_pos, "assets/#{button.value}_gold_plain.png"))
+	       		@input.push(button.value)
+	       	end
+	    end
+   		if  @input.length() == 5 &&  @letters.length() < @word.length()
+   			equal = true
+	        for i in 0...5
+	          if (@input[i] != @binarycode[@letters.length()][i])
+	            equal = false
+	          end
+	        end
+	   		if equal
+	   			x_pos = 600 + (120 * @letters.length())
+	   			y_pos = 100
+	   			if @word[@letters.length()] == "p" 
+	   			    y_pos = 90
+	   			end
+	   			if @word[@letters.length()] == "y"
+	   				y_pos = 125
+	   			end
+	   			@letters.push(Graphic.new(x_pos, y_pos, "assets/#{@word[@letters.length()]}.png"))
+	   		end
+	   	    if @draw_input[4].drawn
+	   	    	@draw_input.clear
+	   	    	@input.clear
+	   	    end
        	elsif @letters.length() == @word.length()
        		@buttons.clear
        		@input.clear
        		@draw_input.clear
        		@correct = true
-       	end
        end
    end
     def refresh
