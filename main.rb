@@ -116,6 +116,11 @@ class BinaryGame_2 < Gosu::Window
 		   	    	@draw_input.clear
 		   	    	@input.clear
 		   	    	@letters.push(Graphic.new(x_pos, y_pos, "assets/#{@word[@letters.length()]}.png"))
+	   	  	  end	
+	   	  	else
+	   	  		if @draw_input[4].drawn
+		   	    	@draw_input.clear
+		   	    	@input.clear
 	   	  	  end		
 	   		end
        	elsif @letters.length() == @word.length()
