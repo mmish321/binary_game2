@@ -11,7 +11,7 @@ class BinaryGame_2 < Gosu::Window
 	def initialize()
 		super(1600,800,false)
 		@grid = CustomGrid.new(self)
-		@background_image = Gosu::Image.new("assets/clouds.jpg", {})
+		@background_image = Gosu::Image.new("assets/background.png", {})
 		self.caption = "Simple Binary Game"
 		@cursor = Cursor.new
 		@dashes = Array.new
@@ -29,6 +29,7 @@ class BinaryGame_2 < Gosu::Window
 		@word = @grid.word
 		@correct = false
 		@goal_image = Gosu::Image.new("assets/smile.png")
+		@goal_image_2 = Gosu::Image.new("assets/#{@word}.png")
 		for i in 0...@word.length()
 			x_pos = 600 + (i*120)
 			y_pos = 100
@@ -51,8 +52,9 @@ class BinaryGame_2 < Gosu::Window
       @cursor.draw
       @background_image.draw(0,0,0)
       if @correct 
-   		@goal_image.draw(650,150,1)
-   	end
+   		 @goal_image_2.draw(1100,200,1)
+      	 @goal_image.draw(650,300,1)
+   		end
 	end
   private
 
@@ -110,12 +112,12 @@ class BinaryGame_2 < Gosu::Window
 	   			if @word[@letters.length()] == "y"
 	   				y_pos = 125
 	   			end
-	   			@letters.push(Graphic.new(x_pos, y_pos, "assets/#{@word[@letters.length()]}.png"))
+	   			if @draw_input[4].drawn
+		   	    	@draw_input.clear
+		   	    	@input.clear
+		   	    	@letters.push(Graphic.new(x_pos, y_pos, "assets/#{@word[@letters.length()]}.png"))
+	   	  	  end		
 	   		end
-	   	    if @draw_input[4].drawn
-	   	    	@draw_input.clear
-	   	    	@input.clear
-	   	    end
        	elsif @letters.length() == @word.length()
        		@buttons.clear
        		@input.clear
